@@ -48,7 +48,7 @@ export default function Leaderboard() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('leaderboardTitle')}</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('leaderboardTitle')}</h1>
         <p className="text-sm text-text-muted mt-1">{t('leaderboardSubtitle')}</p>
       </div>
 
@@ -170,3 +170,5 @@ export default function Leaderboard() {
     </div>
   );
 }
+
+

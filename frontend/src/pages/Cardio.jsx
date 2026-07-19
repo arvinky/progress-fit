@@ -124,7 +124,7 @@ export default function Cardio() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('cardioTitle')}</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('cardioTitle')}</h1>
           <p className="text-sm text-text-muted mt-1">{t('cardioSubtitle')}</p>
         </div>
 
@@ -154,7 +154,7 @@ export default function Cardio() {
         <>
           {/* Weekly Summary Widgets */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-4">
+            <div className="p-3 sm:p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-3">
               <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800">
                 <Timer className="w-5 h-5" />
               </div>
@@ -165,7 +165,7 @@ export default function Cardio() {
                 </h3>
               </div>
             </div>
-            <div className="p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-4">
+            <div className="p-3 sm:p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-3">
               <div className="p-3.5 bg-accent/10 border border-accent/20 rounded-xl text-accent">
                 <Compass className="w-5 h-5" />
               </div>
@@ -174,7 +174,7 @@ export default function Cardio() {
                 <h3 className="text-2xl font-black mt-0.5 text-text">{weeklyStats.totalDistance.toFixed(1)} km</h3>
               </div>
             </div>
-            <div className="p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-4">
+            <div className="p-3 sm:p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-3">
               <div className="p-3.5 bg-danger/10 border border-danger/20 rounded-xl text-danger">
                 <Flame className="w-5 h-5" />
               </div>
@@ -183,7 +183,7 @@ export default function Cardio() {
                 <h3 className="text-2xl font-black mt-0.5 text-text">{weeklyStats.totalCalories} kcal</h3>
               </div>
             </div>
-            <div className="p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-4">
+            <div className="p-3 sm:p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-3">
               <div className="p-3.5 bg-blue-50 border border-blue-100 rounded-xl text-blue-600">
                 <Activity className="w-5 h-5" />
               </div>
@@ -357,3 +357,5 @@ export default function Cardio() {
     </div>
   );
 }
+
+

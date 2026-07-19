@@ -115,7 +115,7 @@ export default function DailyTargets() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('dailyTargetTitle')}</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('dailyTargetTitle')}</h1>
           <p className="text-sm text-text-muted mt-1">{t('dailyTargetSubtitle')}</p>
         </div>
 
@@ -144,7 +144,7 @@ export default function DailyTargets() {
       ) : (
         <>
           {/* Compliance Meter */}
-          <div className="p-6 rounded-3xl glass border border-card-border/80 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="p-6 rounded-3xl glass border border-card-border/80 flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="space-y-2 text-center md:text-left">
               <h3 className="text-xl font-extrabold text-text">{t('complianceTitle')}</h3>
               <p className="text-xs text-text-muted">{t('complianceSubtitle')}</p>
@@ -242,7 +242,7 @@ export default function DailyTargets() {
                 </div>
 
                 {/* Optional Numeric Inputs */}
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-card-border/60">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-card-border/60">
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-text-muted">{t('totalStepsLabel')}</label>
                     <input
@@ -337,3 +337,5 @@ export default function DailyTargets() {
     </div>
   );
 }
+
+

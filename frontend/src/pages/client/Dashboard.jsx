@@ -98,7 +98,7 @@ export default function ClientDashboard() {
       {/* Welcome Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('clientDashTitle', { name: user?.name })}</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('clientDashTitle', { name: user?.name })}</h1>
           <p className="text-sm text-text-muted mt-1">{t('clientDashSubtitle')}</p>
         </div>
         <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ export default function ClientDashboard() {
       </div>
 
       {/* Main Widgets Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Widget 1: Weight */}
         <div className="p-6 rounded-2xl glass border border-card-border/60 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-500 to-violet-500 opacity-5 rounded-bl-[80px]"></div>
@@ -286,3 +286,5 @@ export default function ClientDashboard() {
     </div>
   );
 }
+
+

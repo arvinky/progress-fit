@@ -117,24 +117,24 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       {/* Welcome Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('adminDashTitle')}</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('adminDashTitle')}</h1>
         <p className="text-sm text-text-muted mt-1">{t('adminDashSubtitle')}</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {cards.map((card, i) => {
           const Icon = card.icon;
           return (
             <div
               key={i}
-              className={`p-6 rounded-2xl glass hover-scale shadow-sm relative overflow-hidden`}
+              className={`p-4 sm:p-6 rounded-2xl glass hover-scale shadow-sm relative overflow-hidden`}
             >
               <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${card.color} opacity-10 rounded-bl-[80px]`}></div>
-              <div className="flex justify-between items-start">
+              <div className="flex flex-wrap justify-between items-start gap-2">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-text-muted">{card.title}</p>
-                  <h3 className="text-3xl font-extrabold mt-2 text-text">{card.value}</h3>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold mt-2 text-text">{card.value}</h3>
                   <p className="text-xs text-text-muted mt-1.5">{card.subtitle}</p>
                 </div>
                 <div className="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
@@ -149,8 +149,8 @@ export default function AdminDashboard() {
       {/* Main Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Jadwal Hari Ini */}
-        <div className="lg:col-span-2 glass rounded-3xl p-6 border border-card-border/80">
-          <div className="flex justify-between items-center mb-6">
+        <div className="lg:col-span-2 glass rounded-3xl p-4 sm:p-6 border border-card-border/80">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div>
               <h3 className="text-lg font-bold text-text flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-primary" />
@@ -168,7 +168,7 @@ export default function AdminDashboard() {
           </div>
 
           {todaySchedules.length === 0 ? (
-            <div className="h-48 flex flex-col justify-center items-center text-center p-6 border border-dashed border-card-border rounded-2xl">
+            <div className="h-48 flex flex-col justify-center items-center text-center p-4 sm:p-6 border border-dashed border-card-border rounded-2xl">
               <Calendar className="w-8 h-8 text-text-muted mb-2 opacity-50" />
               <p className="text-sm font-medium text-text-muted">{t('noSchedulesToday')}</p>
             </div>
@@ -193,9 +193,9 @@ export default function AdminDashboard() {
         </div>
 
         {/* Leaderboard Ringkasan */}
-        <div className="glass rounded-3xl p-6 border border-card-border/80 flex flex-col justify-between">
+        <div className="glass rounded-3xl p-4 sm:p-6 border border-card-border/80 flex flex-col justify-between">
           <div>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="text-lg font-bold text-text flex items-center gap-2">
                   <Award className="w-5 h-5 text-accent" />
@@ -254,3 +254,5 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+

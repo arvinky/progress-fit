@@ -87,7 +87,7 @@ export default function Reminders() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-text tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">
           {isAdmin ? t('remindersTitleAdmin') : t('remindersTitleClient')}
         </h1>
         <p className="text-sm text-text-muted mt-1">
@@ -249,3 +249,5 @@ export default function Reminders() {
     </div>
   );
 }
+
+

@@ -114,7 +114,7 @@ export default function Weight() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('weightTitle')}</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('weightTitle')}</h1>
           <p className="text-sm text-text-muted mt-1">{t('weightSubtitle')}</p>
         </div>
 
@@ -143,7 +143,7 @@ export default function Weight() {
       ) : (
         <>
           {/* Progress Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl glass border border-card-border/60 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/5 rounded-bl-[60px]"></div>
               <p className="text-xs font-bold uppercase tracking-wider text-text-muted">{t('initialWeightCard')}</p>
@@ -306,3 +306,5 @@ export default function Weight() {
     </div>
   );
 }
+
+

@@ -139,7 +139,7 @@ export default function AdminClients() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-text tracking-tight">{t('clientsTitle')}</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight">{t('clientsTitle')}</h1>
           <p className="text-sm text-text-muted mt-1">{t('clientsSubtitle')}</p>
         </div>
         <button
@@ -283,7 +283,7 @@ export default function AdminClients() {
       {/* Add Client Modal */}
       {isAddOpen && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="glass w-full max-w-xl rounded-3xl border border-card-border p-6 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
+          <div className="glass w-full max-w-xl rounded-3xl border border-card-border p-4 sm:p-6 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto mx-0">
             <button
               onClick={() => setIsAddOpen(false)}
               className="absolute right-4 top-4 p-1 hover:bg-slate-100 rounded-lg text-text-muted hover:text-text"
@@ -404,7 +404,7 @@ export default function AdminClients() {
       {/* Edit Client Modal */}
       {isEditOpen && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="glass w-full max-w-xl rounded-3xl border border-card-border p-6 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
+          <div className="glass w-full max-w-xl rounded-3xl border border-card-border p-4 sm:p-6 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto mx-0">
             <button
               onClick={() => setIsEditOpen(false)}
               className="absolute right-4 top-4 p-1 hover:bg-slate-100 rounded-lg text-text-muted hover:text-text"
@@ -514,3 +514,5 @@ export default function AdminClients() {
     </div>
   );
 }
+
+
