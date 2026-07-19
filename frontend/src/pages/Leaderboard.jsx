@@ -75,17 +75,17 @@ export default function Leaderboard() {
       </div>
 
       {/* Filter range selector */}
-      <div className="flex justify-between items-center bg-slate-50 p-4 border border-card-border rounded-2xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50 p-4 border border-card-border rounded-2xl">
         <span className="text-xs font-bold text-text-muted flex items-center gap-1">
           <Filter className="w-4 h-4 text-indigo-600" />
           <span>{t('timeframeLabel')}</span>
         </span>
-        <div className="flex items-center gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350">
+        <div className="flex items-center w-full sm:w-auto gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350">
           {['weekly', 'monthly', 'yearly'].map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1 text-xs font-bold rounded-lg uppercase transition-all ${
+              className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-lg uppercase transition-all text-center ${
                 period === p
                   ? 'bg-indigo-600 text-white shadow-md'
                   : 'text-slate-700 hover:bg-slate-300 hover:text-slate-950'
