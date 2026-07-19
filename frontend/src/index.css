@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* Clean Light Slate Background */
+  color: #0f172a; /* Deep Navy Slate */
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Vibrant Colorful Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Crisp Clean White Card with soft colorful drop shadow */
+.glass {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+}
+
+.glass-accent {
+  background: rgba(99, 102, 241, 0.03);
+  border: 1px solid #e2e8f0;
+}
+
+/* Professional smooth transitions */
+.hover-scale {
+  transition: all 0.15s ease-in-out;
+}
+.hover-scale:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.08);
+}

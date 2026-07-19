@@ -1,0 +1,256 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(CLIENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client    Client?
+  reminders Reminder[] @relation("SenderReminders")
+  receivedReminders Reminder[] @relation("ReceiverReminders")
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+model Client {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @unique
+  age             Int
+  height          Float    // cm
+  initialWeight   Float    // kg
+  targetWeight    Float    // kg
+  program         Program
+  isActive        Boolean  @default(true)
+  joinedAt        DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weightLogs      WeightLog[]
+  bodyMeasurements BodyMeasurement[]
+  workoutSessions WorkoutSession[]
+  personalRecords PersonalRecord[]
+  schedules       Schedule[]
+  dailyTargets    DailyTarget[]
+  cardioLogs      CardioLog[]
+  strengthTargets StrengthTarget[]
+
+  @@map("clients")
+}
+
+enum Program {
+  BULKING
+  CUTTING
+  MAINTENANCE
+}
+
+model WeightLog {
+  id        Int      @id @default(autoincrement())
+  clientId  Int
+  weight    Float    // kg
+  note      String?
+  loggedAt  DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("weight_logs")
+}
+
+model BodyMeasurement {
+  id        Int      @id @default(autoincrement())
+  clientId  Int
+  weekNumber Int
+  chest     Float?   // cm
+  waist     Float?   // cm
+  hips      Float?   // cm
+  arms      Float?   // cm
+  thighs    Float?   // cm
+  calves    Float?   // cm
+  neck      Float?   // cm
+  note      String?
+  measuredAt DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("body_measurements")
+}
+
+model WorkoutSession {
+  id          Int      @id @default(autoincrement())
+  clientId    Int
+  sessionName String?
+  dayOfWeek   String?
+  startTime   DateTime @default(now())
+  endTime     DateTime?
+  durationMin Int?
+  totalSets   Int?     @default(0)
+  totalReps   Int?     @default(0)
+  totalVolume Float?   @default(0) // kg
+  note        String?
+  createdAt   DateTime @default(now())
+
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  exercises   WorkoutExercise[]
+
+  @@map("workout_sessions")
+}
+
+model WorkoutExercise {
+  id          Int      @id @default(autoincrement())
+  sessionId   Int
+  exerciseName String
+  sets        Int
+  reps        Int
+  weight      Float    // kg
+  rpe         Int?     // Rate of Perceived Exertion 1-10
+  note        String?
+  createdAt   DateTime @default(now())
+
+  session     WorkoutSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("workout_exercises")
+}
+
+model PersonalRecord {
+  id           Int      @id @default(autoincrement())
+  clientId     Int
+  exerciseName String
+  weight       Float    // kg
+  reps         Int?
+  achievedAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  client       Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("personal_records")
+}
+
+model StrengthTarget {
+  id           Int      @id @default(autoincrement())
+  clientId     Int
+  exerciseName String
+  targetWeight Float    // kg
+  note         String?
+  setByAdmin   Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  client       Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@unique([clientId, exerciseName])
+  @@map("strength_targets")
+}
+
+model Schedule {
+  id          Int      @id @default(autoincrement())
+  clientId    Int
+  dayOfWeek   DayOfWeek
+  programName String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("schedules")
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model DailyTarget {
+  id             Int      @id @default(autoincrement())
+  clientId       Int
+  date           DateTime
+  workoutDone    Boolean  @default(false)
+  proteinMet     Boolean  @default(false)
+  waterMet       Boolean  @default(false)
+  sleepMet       Boolean  @default(false)
+  stepsMet       Boolean  @default(false)
+  stepsCount     Int?
+  waterLiters    Float?
+  sleepHours     Float?
+  note           String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  client         Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@unique([clientId, date])
+  @@map("daily_targets")
+}
+
+model CardioLog {
+  id          Int         @id @default(autoincrement())
+  clientId    Int
+  cardioType  CardioType
+  durationMin Int
+  distanceKm  Float?
+  calories    Int?
+  heartRate   Int?        // avg bpm
+  note        String?
+  loggedAt    DateTime    @default(now())
+  createdAt   DateTime    @default(now())
+
+  client      Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("cardio_logs")
+}
+
+enum CardioType {
+  WALK
+  RUN
+  BIKE
+  STAIRMASTER
+  SWIM
+  OTHER
+}
+
+model Reminder {
+  id          Int            @id @default(autoincrement())
+  senderId    Int
+  receiverId  Int
+  title       String
+  message     String
+  status      ReminderStatus @default(SENT)
+  scheduledAt DateTime?
+  readAt      DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  sender      User           @relation("SenderReminders", fields: [senderId], references: [id])
+  receiver    User           @relation("ReceiverReminders", fields: [receiverId], references: [id])
+
+  @@map("reminders")
+}
+
+enum ReminderStatus {
+  SENT
+  READ
+  UNREAD
+}
