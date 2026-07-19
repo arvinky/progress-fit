@@ -34,12 +34,6 @@ export default function Login() {
     }
   };
 
-  const autofill = (userEmail, userPass) => {
-    setEmail(userEmail);
-    setPassword(userPass);
-    setLocalError('');
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center relative overflow-hidden px-4 py-12">
       {/* Subtle top background gradient glow */}
@@ -128,27 +122,6 @@ export default function Login() {
             {loading ? t('loading') : t('loginBtn')}
           </button>
         </form>
-
-        {/* Demo Credentials Auto Fill */}
-        <div className="mt-8 pt-6 border-t border-slate-100">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-3">{t('demoAccount')}</span>
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              onClick={() => autofill('admin@progressfit.com', 'admin123')}
-              className="group py-2.5 px-3 bg-slate-50 hover:bg-indigo-50/40 border border-slate-200 hover:border-indigo-200 rounded-xl text-left transition-all hover:scale-[1.02]"
-            >
-              <span className="font-bold text-indigo-650 group-hover:text-indigo-700 transition-colors block text-xs">{t('coachDemo')}</span>
-              <span className="text-slate-500 text-[10px] block truncate mt-0.5">admin@progressfit.com</span>
-            </button>
-            <button
-              onClick={() => autofill('arvin@gmail.com', 'client123')}
-              className="group py-2.5 px-3 bg-slate-50 hover:bg-amber-50/40 border border-slate-200 hover:border-amber-200 rounded-xl text-left transition-all hover:scale-[1.02]"
-            >
-              <span className="font-bold text-amber-600 group-hover:text-amber-700 transition-colors block text-xs">{t('clientDemo')}</span>
-              <span className="text-slate-500 text-[10px] block truncate mt-0.5">arvin@gmail.com</span>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
