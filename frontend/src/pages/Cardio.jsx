@@ -251,18 +251,18 @@ export default function Cardio() {
             </div>
 
             {/* Log Cardio Form */}
-            <div className="glass rounded-3xl p-6 border border-card-border/80">
+            <div className="glass rounded-3xl p-4 sm:p-6 border border-card-border/80">
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <Plus className="w-5 h-5 text-accent" />
                 <span>{t('cardioAddTitle')}</span>
               </h3>
               <form onSubmit={handleAddCardio} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">{t('cardioTypeLabel')}</label>
+                  <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('cardioTypeLabel')}</label>
                   <select
                     value={cardioType}
                     onChange={(e) => setCardioType(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650 font-semibold"
                   >
                     <option value="WALK">{t('cardioWalk')}</option>
                     <option value="RUN">{t('cardioRun')}</option>
@@ -273,73 +273,73 @@ export default function Cardio() {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('durationLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('durationLabel')}</label>
                     <input
                       type="number"
                       required
                       placeholder="e.g. 30"
                       value={durationMin}
                       onChange={(e) => setDurationMin(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('cardioDistanceKmLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('cardioDistanceKmLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 5.2"
                       value={distanceKm}
                       onChange={(e) => setDistanceKm(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('cardioEstCalories')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('cardioEstCalories')}</label>
                     <input
                       type="number"
                       placeholder="e.g. 350"
                       value={calories}
                       onChange={(e) => setCalories(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('cardioAvgHeartRate')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('cardioAvgHeartRate')}</label>
                     <input
                       type="number"
                       placeholder="e.g. 145"
                       value={heartRate}
                       onChange={(e) => setHeartRate(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">{t('cardioDateLabel')}</label>
+                  <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('cardioDateLabel')}</label>
                   <input
                     type="date"
                     required
                     value={loggedAt}
                     onChange={(e) => setLoggedAt(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">{t('cardioNoteLabel')}</label>
+                  <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('cardioNoteLabel')}</label>
                   <input
                     type="text"
                     placeholder={t('cardioNotePlaceholder')}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                   />
                 </div>
 
