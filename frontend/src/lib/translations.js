@@ -315,7 +315,7 @@ export const translations = {
     remindersTitleAdmin: 'Kirim Reminder Klien',
     remindersTitleClient: 'Notifikasi & Pengingat',
     remindersSubtitleAdmin: 'Buat pengingat check-in mingguan, jadwal timbangan, atau evaluasi latihan bersama PT.',
-    remindersSubtitleClient: 'Daftar pengingat, jadwal evaluasi, dan pesan khusus dari Coach Rian.',
+    remindersSubtitleClient: 'Daftar pengingat, jadwal evaluasi, dan pesan khusus dari Coach Arvin.',
     messagesBoxTitle: 'Kotak Pesan Reminder',
     unreadLabel: 'Belum Dibaca',
     readLabel: 'Sudah Dibaca',
