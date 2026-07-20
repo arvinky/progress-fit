@@ -377,14 +377,6 @@ export default function Reminders() {
               <p className="text-xs text-text-muted leading-relaxed">
                 {t('systemNoticeDesc')}
               </p>
-              <div className="pt-2 border-t border-slate-100">
-                <p className="text-[10px] font-bold text-text-muted mb-2">Cara Membalas:</p>
-                <ul className="text-xs text-text-muted space-y-1.5">
-                  <li className="flex items-start gap-2"><span>👆</span> Buka notifikasi lalu klik tombol <strong>Balas</strong></li>
-                  <li className="flex items-start gap-2"><span>😊</span> Pilih emoji cepat untuk reaksi singkat</li>
-                  <li className="flex items-start gap-2"><span>✍️</span> Atau ketik pesan balasan langsung</li>
-                </ul>
-              </div>
             </div>
           )}
         </div>
