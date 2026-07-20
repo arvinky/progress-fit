@@ -216,7 +216,7 @@ export default function Cardio() {
                       className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between"
                     >
                       <div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
                           <span className="px-2 py-0.5 bg-blue-50 text-blue-650 border border-blue-100 text-[10px] font-black rounded-lg uppercase">
                             {getCardioTypeTranslation(log.cardioType)}
                           </span>
