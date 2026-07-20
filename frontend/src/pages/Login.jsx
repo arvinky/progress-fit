@@ -241,7 +241,7 @@ export default function Login() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('weightLabel')}</label>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('registerWeightLabel')}</label>
                   <input
                     type="number"
                     step="0.1"
@@ -255,7 +255,7 @@ export default function Login() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('targetWeightLabel')}</label>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('registerTargetWeightLabel')}</label>
                   <input
                     type="number"
                     step="0.1"
