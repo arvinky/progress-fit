@@ -220,8 +220,8 @@ export default function Cardio() {
                           <span className="px-2 py-0.5 bg-blue-50 text-blue-650 border border-blue-100 text-[10px] font-black rounded-lg uppercase">
                             {getCardioTypeTranslation(log.cardioType)}
                           </span>
-                          <span className="text-xs text-text-muted font-bold whitespace-nowrap block">
-                            {new Date(log.loggedAt).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          <span className="text-[11px] sm:text-xs text-text-muted font-bold whitespace-nowrap block">
+                            {new Date(log.loggedAt).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                           </span>
                         </div>
                         <div className="flex items-center gap-4 text-xs text-text mt-2 font-bold flex-wrap">

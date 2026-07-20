@@ -171,12 +171,12 @@ export default function WorkoutHistory() {
                   <div className="flex items-center gap-4 text-xs text-text-muted mt-1.5 flex-wrap">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-indigo-600" />
-                      <span>
-                        {new Date(sess.startTime).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
+                      <span className="text-[11px] sm:text-xs font-semibold whitespace-nowrap">
+                        {new Date(sess.startTime).toLocaleDateString('id-ID', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric'
+                        })} {new Date(sess.startTime).toLocaleTimeString('id-ID', {
                           hour: '2-digit',
                           minute: '2-digit'
                         })}

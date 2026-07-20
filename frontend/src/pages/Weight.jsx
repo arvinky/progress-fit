@@ -274,8 +274,8 @@ export default function Weight() {
                     const diff = (initialWeight - log.weight).toFixed(1);
                     return (
                       <tr key={log.id} className="hover:bg-slate-50 transition-all">
-                        <td className="py-3.5 px-4 font-medium text-text-muted">
-                          {new Date(log.loggedAt).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                        <td className="py-3.5 px-4 font-semibold text-text-muted text-[11px] sm:text-xs whitespace-nowrap">
+                          {new Date(log.loggedAt).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                         </td>
                         <td className="py-3.5 px-4 font-bold text-text">{log.weight} kg</td>
                         <td className="py-3.5 px-4">
