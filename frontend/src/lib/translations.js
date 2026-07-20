@@ -53,6 +53,21 @@ export const translations = {
     passwordPlaceholder: 'Masukkan password Anda',
     languageLabel: 'Bahasa',
 
+    // Register Page (Indonesian)
+    registerTitle: 'Daftar Akun Baru',
+    registerSubtitle: 'Buat akun latihan Anda untuk mulai memantau progres kebugaran.',
+    registerBtn: 'Daftar & Masuk',
+    noAccount: 'Belum punya akun? Daftar secara mandiri',
+    hasAccount: 'Sudah punya akun? Masuk',
+    registerFieldsError: 'Harap isi semua kolom pendaftaran.',
+    ageLabel: 'Umur (Tahun)',
+    heightLabel: 'Tinggi Badan (cm)',
+    weightLabel: 'Berat Badan Sekarang (kg)',
+    targetWeightLabel: 'Target Berat Badan (kg)',
+    programLabel: 'Program Latihan',
+    nameLabel: 'Nama Lengkap',
+    namePlaceholder: 'Masukkan nama lengkap Anda',
+
     // Admin Dashboard
     adminDashTitle: 'Dashboard Utama',
     adminDashSubtitle: 'Ringkasan status seluruh klien dan jadwal latihan Anda hari ini.',
@@ -413,6 +428,21 @@ export const translations = {
     emailPlaceholder: 'Enter your email',
     passwordPlaceholder: 'Enter your password',
     languageLabel: 'Language',
+
+    // Register Page (English)
+    registerTitle: 'Create New Account',
+    registerSubtitle: 'Create your fitness account to start monitoring progress.',
+    registerBtn: 'Register & Sign In',
+    noAccount: "Don't have an account? Register here",
+    hasAccount: 'Already have an account? Sign In',
+    registerFieldsError: 'Please fill all registration fields.',
+    ageLabel: 'Age (Years)',
+    heightLabel: 'Height (cm)',
+    weightLabel: 'Current Weight (kg)',
+    targetWeightLabel: 'Target Weight (kg)',
+    programLabel: 'Training Program',
+    nameLabel: 'Full Name',
+    namePlaceholder: 'Enter your full name',
 
     // Admin Dashboard
     adminDashTitle: 'Main Dashboard',
