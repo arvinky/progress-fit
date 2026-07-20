@@ -153,7 +153,7 @@ export default function Cardio() {
       ) : (
         <>
           {/* Weekly Summary Widgets */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="p-3 sm:p-5 rounded-2xl glass border border-card-border/60 relative overflow-hidden flex items-center gap-3">
               <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800">
                 <Timer className="w-5 h-5" />
