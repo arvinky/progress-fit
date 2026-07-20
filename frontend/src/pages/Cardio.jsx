@@ -213,9 +213,9 @@ export default function Cardio() {
                   {cardioLogs.map((log) => (
                     <div
                       key={log.id}
-                      className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between"
+                      className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3"
                     >
-                      <div>
+                      <div className="flex-1 min-w-0">
                         <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
                           <span className="px-2 py-0.5 bg-blue-50 text-blue-650 border border-blue-100 text-[10px] font-black rounded-lg uppercase">
                             {getCardioTypeTranslation(log.cardioType)}
