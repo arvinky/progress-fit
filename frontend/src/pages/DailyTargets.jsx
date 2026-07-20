@@ -312,8 +312,8 @@ export default function DailyTargets() {
                   return (
                     <div key={i} className={`p-3.5 border rounded-2xl flex items-center justify-between transition-all ${cardBg}`}>
                       <div>
-                        <span className="text-xs font-extrabold text-slate-900">
-                          {new Date(tgt.date).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', { weekday: 'long', day: 'numeric', month: 'short' })}
+                        <span className="text-xs font-extrabold text-slate-900 block whitespace-nowrap">
+                          {new Date(tgt.date).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </span>
                         <div className="flex gap-1.5 mt-1.5">
                           <span className={`w-2.5 h-2.5 rounded-full ${tgt.workoutDone ? 'bg-indigo-600' : 'bg-slate-400'}`}></span>
