@@ -23,7 +23,7 @@ const getLeaderboard = async (req, res) => {
 
     let boardData = [];
 
-    // 1. Weight Loss Category
+    // 1. Weight Progress Category (Progress menuju target berat badan)
     if (category === 'weightLoss') {
       const clients = await prisma.client.findMany({
         where: { isActive: true },
@@ -37,16 +37,42 @@ const getLeaderboard = async (req, res) => {
       });
 
       boardData = clients.map((c) => {
-        const latestWeight = c.weightLogs[0]?.weight || c.initialWeight;
-        const loss = c.initialWeight - latestWeight;
-        const percentage = c.initialWeight > 0 ? (loss / c.initialWeight) * 100 : 0;
+        const latestWeight = c.weightLogs[0]?.weight ?? c.initialWeight;
+        const targetWeight = c.targetWeight;
+        const initialWeight = c.initialWeight;
+
+        // Direction: negative diff = needs to lose weight (CUTTING), positive = needs to gain (BULKING)
+        const totalNeeded = targetWeight - initialWeight; // e.g. -10 for cutting, +8 for bulking
+        const progressMade = latestWeight - initialWeight;  // how much they've actually moved
+
+        let progressPercent = 0;
+        let progressKg = 0;
+        let label = '';
+
+        if (Math.abs(totalNeeded) < 0.1) {
+          // Already at target from the start
+          progressPercent = 100;
+          progressKg = 0;
+          label = 'Target tercapai sejak awal';
+        } else if (totalNeeded < 0) {
+          // CUTTING: needs to lose weight
+          progressKg = initialWeight - latestWeight; // positive = lost weight
+          progressPercent = Math.min(100, (progressKg / Math.abs(totalNeeded)) * 100);
+          label = `Turun: ${progressKg.toFixed(1)} kg (Target turun ${Math.abs(totalNeeded).toFixed(1)} kg)`;
+        } else {
+          // BULKING: needs to gain weight
+          progressKg = latestWeight - initialWeight; // positive = gained weight
+          progressPercent = Math.min(100, (progressKg / totalNeeded) * 100);
+          label = `Naik: ${progressKg.toFixed(1)} kg (Target naik ${totalNeeded.toFixed(1)} kg)`;
+        }
+
         return {
           clientId: c.id,
           userId: c.user.id,
           name: c.user.name,
-          value: parseFloat(loss.toFixed(1)),
-          unit: 'kg',
-          details: `Awal: ${c.initialWeight}kg → Sekarang: ${latestWeight}kg (${percentage.toFixed(1)}%)`,
+          value: parseFloat(Math.max(0, progressPercent).toFixed(1)),
+          unit: '%',
+          details: label || `${initialWeight}kg → ${latestWeight}kg (Target: ${targetWeight}kg)`,
         };
       }).sort((a, b) => b.value - a.value);
     }

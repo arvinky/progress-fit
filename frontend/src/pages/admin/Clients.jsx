@@ -338,7 +338,7 @@ export default function AdminClients() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">Tinggi (cm)</label>
+                  <label className="text-xs font-semibold text-text-muted">{t('heightLabel')}</label>
                   <input
                     type="number"
                     value={height}
@@ -361,7 +361,7 @@ export default function AdminClients() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">Berat Awal (kg)</label>
+                  <label className="text-xs font-semibold text-text-muted">{t('initialWeightLabel')}</label>
                   <input
                     type="number"
                     step="0.1"
@@ -371,7 +371,7 @@ export default function AdminClients() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">Target Berat (kg)</label>
+                  <label className="text-xs font-semibold text-text-muted">{t('targetWeightLabel')}</label>
                   <input
                     type="number"
                     step="0.1"
@@ -449,7 +449,7 @@ export default function AdminClients() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">Tinggi (cm)</label>
+                  <label className="text-xs font-semibold text-text-muted">{t('heightLabel')}</label>
                   <input
                     type="number"
                     value={height}
@@ -472,7 +472,7 @@ export default function AdminClients() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">Berat Awal (kg)</label>
+                  <label className="text-xs font-semibold text-text-muted">{t('initialWeightLabel')}</label>
                   <input
                     type="number"
                     step="0.1"
@@ -482,7 +482,7 @@ export default function AdminClients() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">Target Berat (kg)</label>
+                  <label className="text-xs font-semibold text-text-muted">{t('targetWeightLabel')}</label>
                   <input
                     type="number"
                     step="0.1"

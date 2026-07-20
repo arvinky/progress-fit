@@ -19,14 +19,14 @@ export default function WorkoutHistory() {
 
   // Form Modal State
   const [isOpen, setIsOpen] = useState(false);
-  const [sessionName, setSessionName] = useState('Push Day');
-  const [durationMin, setDurationMin] = useState(60);
+  const [sessionName, setSessionName] = useState('');
+  const [durationMin, setDurationMin] = useState('');
   const [note, setNote] = useState('');
   const [startTime, setStartTime] = useState(new Date().toISOString().split('T')[0] + 'T10:00');
 
   // Exercise Inputs list
   const [exercises, setExercises] = useState([
-    { exerciseName: 'Bench Press', sets: 3, reps: 10, weight: 60, rpe: 8, note: '' }
+    { exerciseName: '', sets: '', reps: '', weight: '', rpe: '', note: '' }
   ]);
 
   // Load clients if Admin
@@ -63,7 +63,7 @@ export default function WorkoutHistory() {
   }
 
   const handleAddExerciseRow = () => {
-    setExercises([...exercises, { exerciseName: '', sets: 3, reps: 10, weight: 20, rpe: 8, note: '' }]);
+    setExercises([...exercises, { exerciseName: '', sets: '', reps: '', weight: '', rpe: '', note: '' }]);
   };
 
   const handleRemoveExerciseRow = (idx) => {
@@ -90,10 +90,10 @@ export default function WorkoutHistory() {
       });
       setIsOpen(false);
       // Reset Form
-      setSessionName('Push Day');
-      setDurationMin(60);
+      setSessionName('');
+      setDurationMin('');
       setNote('');
-      setExercises([{ exerciseName: 'Bench Press', sets: 3, reps: 10, weight: 60, rpe: 8, note: '' }]);
+      setExercises([{ exerciseName: '', sets: '', reps: '', weight: '', rpe: '', note: '' }]);
       loadSessions();
     } catch (error) {
       alert(t('workoutAddError'));

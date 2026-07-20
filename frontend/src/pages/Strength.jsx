@@ -271,7 +271,7 @@ export default function Strength() {
                         <div key={i} className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
                           <div className="flex justify-between items-center">
                             <span className="font-bold text-sm text-text">{tgt.exerciseName}</span>
-                            <span className="text-xs font-extrabold text-indigo-600">{tgt.targetWeight} kg {t('targetLabel')}</span>
+                            <span className="text-xs font-extrabold text-indigo-600">{tgt.targetWeight} kg {t('target')}</span>
                           </div>
                           {tgt.note && (
                             <p className="text-xs text-text-muted italic flex gap-1.5 items-start">

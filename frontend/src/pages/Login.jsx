@@ -213,7 +213,7 @@ export default function Login() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('ageLabel')}</label>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('registerAgeLabel')}</label>
                   <input
                     type="number"
                     required
@@ -226,7 +226,7 @@ export default function Login() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('heightLabel')}</label>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('registerHeightLabel')}</label>
                   <input
                     type="number"
                     required
@@ -270,7 +270,7 @@ export default function Login() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('programLabel')}</label>
+                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{t('registerProgramLabel')}</label>
                 <select
                   value={program}
                   onChange={(e) => setProgram(e.target.value)}
