@@ -231,92 +231,92 @@ export default function Body() {
                 <span>{t('newBodyLogTitle')}</span>
               </h3>
               <form onSubmit={handleSaveMeasurement} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div className="space-y-1.5 col-span-2">
-                    <label className="text-xs font-semibold text-text-muted">{t('weekNumberLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('weekNumberLabel')}</label>
                     <input
                       type="number"
                       required
                       value={weekNumber}
                       onChange={(e) => setWeekNumber(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('chestLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('chestLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 100"
                       value={chest}
                       onChange={(e) => setChest(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('waistLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('waistLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 88"
                       value={waist}
                       onChange={(e) => setWaist(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('armsLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('armsLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 35"
                       value={arms}
                       onChange={(e) => setArms(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('hipsLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('hipsLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 95"
                       value={hips}
                       onChange={(e) => setHips(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('thighsLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('thighsLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 58"
                       value={thighs}
                       onChange={(e) => setThighs(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-text-muted">{t('leherLabel')}</label>
+                    <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('leherLabel')}</label>
                     <input
                       type="number"
                       step="0.1"
                       placeholder="e.g. 38"
                       value={neck}
                       onChange={(e) => setNeck(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                     />
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-text-muted">{t('bodyNoteLabel')}</label>
+                  <label className="text-[10px] sm:text-xs font-semibold text-text-muted">{t('bodyNoteLabel')}</label>
                   <input
                     type="text"
                     placeholder={t('bodyNotePlaceholder')}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                   />
                 </div>
                 <button
