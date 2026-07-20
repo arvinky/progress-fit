@@ -198,7 +198,7 @@ export default function Cardio() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cardio logs feed */}
-            <div className="lg:col-span-2 glass rounded-3xl p-6 border border-card-border/80 space-y-4">
+            <div className="order-2 lg:order-1 lg:col-span-2 glass rounded-3xl p-6 border border-card-border/80 space-y-4">
               <h3 className="text-lg font-bold text-text flex items-center gap-2 mb-2">
                 <Calendar className="w-5 h-5 text-indigo-600" />
                 <span>{t('cardioHistoryTitle')}</span>
@@ -251,7 +251,7 @@ export default function Cardio() {
             </div>
 
             {/* Log Cardio Form */}
-            <div className="glass rounded-3xl p-4 sm:p-6 border border-card-border/80">
+            <div className="order-1 lg:order-2 glass rounded-3xl p-4 sm:p-6 border border-card-border/80">
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <Plus className="w-5 h-5 text-accent" />
                 <span>{t('cardioAddTitle')}</span>

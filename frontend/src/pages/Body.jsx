@@ -190,7 +190,7 @@ export default function Body() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Chart Area */}
-            <div className="lg:col-span-2 glass rounded-3xl p-6 border border-card-border/80">
+            <div className="order-2 lg:order-1 lg:col-span-2 glass rounded-3xl p-6 border border-card-border/80">
               <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                 <Activity className="w-5 h-5 text-indigo-600" />
                 <span>{t('bodyChartTitle')}</span>
@@ -225,7 +225,7 @@ export default function Body() {
             </div>
 
             {/* Input Log Form */}
-            <div className="glass rounded-3xl p-6 border border-card-border/80">
+            <div className="order-1 lg:order-2 glass rounded-3xl p-6 border border-card-border/80">
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <Plus className="w-5 h-5 text-accent" />
                 <span>{t('newBodyLogTitle')}</span>
