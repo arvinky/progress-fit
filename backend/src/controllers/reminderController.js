@@ -101,4 +101,41 @@ const deleteReminder = async (req, res) => {
   }
 };
 
-module.exports = { getReminders, createReminder, markAsRead, deleteReminder };
+// PATCH /api/reminders/:id/reply (Client only)
+const replyToReminder = async (req, res) => {
+  try {
+    const reminderId = parseInt(req.params.id);
+    const userId = req.user.id;
+    const { reply } = req.body;
+
+    if (!reply || !reply.trim()) {
+      return res.status(400).json({ message: 'Balasan tidak boleh kosong' });
+    }
+
+    const reminder = await prisma.reminder.findUnique({ where: { id: reminderId } });
+    if (!reminder) {
+      return res.status(404).json({ message: 'Reminder tidak ditemukan' });
+    }
+
+    if (reminder.receiverId !== userId) {
+      return res.status(403).json({ message: 'Akses ditolak' });
+    }
+
+    const updated = await prisma.reminder.update({
+      where: { id: reminderId },
+      data: {
+        clientReply: reply.trim(),
+        clientReplyAt: new Date(),
+        status: 'READ',
+        readAt: reminder.readAt || new Date(),
+      },
+    });
+
+    res.json({ message: 'Balasan berhasil dikirim', reminder: updated });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Terjadi kesalahan server' });
+  }
+};
+
+module.exports = { getReminders, createReminder, markAsRead, deleteReminder, replyToReminder };

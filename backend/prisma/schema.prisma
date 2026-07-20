@@ -246,6 +246,9 @@ model Reminder {
   sender      User           @relation("SenderReminders", fields: [senderId], references: [id])
   receiver    User           @relation("ReceiverReminders", fields: [receiverId], references: [id])
 
+  clientReply   String?
+  clientReplyAt DateTime?
+
   @@map("reminders")
 }
 

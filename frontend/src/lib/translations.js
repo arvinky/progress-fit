@@ -332,9 +332,15 @@ export const translations = {
     noActiveNotifications: 'Tidak ada notifikasi aktif saat ini.',
     sentBy: 'Dikirim oleh: {sender} • {date}',
     systemNoticeTitle: 'Pemberitahuan Sistem',
-    systemNoticeDesc: 'Fitur pengingat dirancang untuk membantu Anda mematuhi rutinitas kebugaran Anda. Harap segera baca dan tindak lanjuti setiap instruksi khusus yang dikirimkan oleh Coach.',
+    systemNoticeDesc: 'Fitur pengingat dirancang untuk membantu Anda mematuhi rutinitas kebugaran Anda. Harap segera baca dan tindak lanjuti setiap instruksi khusus yang dikirimkan oleh Coach Arvin.',
     reminderTitlePlaceholder: 'e.g. Update Berat Badan Mingguan',
     reminderMsgPlaceholder: 'Tolong lakukan penimbangan berat badan esok pagi sebelum sarapan...',
+    replyPlaceholder: 'Ketik balasan atau reaksi...',
+    replyBtn: 'Kirim Balasan',
+    replyLabel: 'Balasan Anda:',
+    cancelReply: 'Batal',
+    emojiReactionTitle: 'Balas dengan Emoji',
+    yourReplyLabel: 'Balasan kamu:',
 
 
     // Leaderboard Page
@@ -708,7 +714,13 @@ export const translations = {
     noActiveNotifications: 'No active notifications at the moment.',
     sentBy: 'Sent by: {sender} • {date}',
     systemNoticeTitle: 'System Notice',
-    systemNoticeDesc: 'The reminders feature helps you stay committed to your training schedule. Please review and complete any coach instructions promptly.',
+    systemNoticeDesc: 'The reminders feature helps you stay committed to your training schedule. Please review and complete any instructions from Coach Arvin promptly.',
+    replyPlaceholder: 'Type a reply or reaction...',
+    replyBtn: 'Send Reply',
+    replyLabel: 'Your reply:',
+    cancelReply: 'Cancel',
+    emojiReactionTitle: 'React with Emoji',
+    yourReplyLabel: 'Your reply:',
     reminderTitlePlaceholder: 'e.g. Weekly Weigh-In Update',
     reminderMsgPlaceholder: 'Please record your body weight tomorrow morning before breakfast...',
 
