@@ -11,10 +11,10 @@ module.exports = {
         primary: {
           DEFAULT: '#6366f1', // Vibrant Indigo
           hover: '#4f46e5',   // Deep Indigo
-          blue: '#3b82f6',    // Vibrant Royal Blue
+          blue: '#2563eb',    // Bright Royal Blue
         },
         accent: {
-          DEFAULT: '#00f5ff', // Neon Cyan
+          DEFAULT: '#10b981', // Vibrant Emerald Green
           light: '#34d399',   // Light Mint Green
         },
         warning: {
@@ -24,13 +24,13 @@ module.exports = {
           DEFAULT: '#ef4444', // Bright Red
         },
         card: {
-          DEFAULT: '#0d1326', // Dark Card Background
-          border: 'rgba(99, 102, 241, 0.15)',  // Neon indigo border
+          DEFAULT: '#ffffff', // Pure White Cards
+          border: '#e2e8f0',  // Light slate border
         },
-        background: '#060913', // Obsidian Dark Background
+        background: '#f8fafc', // Clean Light Slate Background
         text: {
-          DEFAULT: '#f8fafc', // Light text
-          muted: '#94a3b8',   // Muted slate text
+          DEFAULT: '#0f172a', // Deep Navy Slate
+          muted: '#64748b',   // Cool Slate Grey
         }
       },
       fontFamily: {

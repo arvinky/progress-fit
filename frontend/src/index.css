@@ -1,179 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
-@config "../tailwind.config.cjs";
-
-@theme {
-  --font-sans: 'Outfit', 'Inter', sans-serif;
-  
-  --color-primary: #6366f1;
-  --color-primary-hover: #4f46e5;
-  --color-primary-blue: #3b82f6;
-  --color-accent: #00f5ff; /* Neon Cyan */
-  --color-accent-light: #34d399;
-  --color-warning: #f97316;
-  --color-danger: #ef4444;
-  --color-card: rgba(15, 22, 42, 0.7);
-  --color-card-border: rgba(99, 102, 241, 0.15);
-  --color-background: #060913; /* Obsidian Dark */
-  --color-text: #f8fafc;
-  --color-text-muted: #94a3b8;
-}
 
 body {
   margin: 0;
-  font-family: 'Outfit', sans-serif;
-  background-color: #060913 !important;
-  color: #f8fafc !important;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* Clean Light Slate Background */
+  color: #0f172a; /* Deep Navy Slate */
   min-height: 100vh;
   overflow-x: hidden;
-  letter-spacing: -0.01em;
 }
 
-/* Futuristic Neon Scrollbar */
+/* Vibrant Colorful Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #060913;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
-  border-radius: 9999px;
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f5ff;
-  box-shadow: 0 0 10px #00f5ff;
+  background: #94a3b8;
 }
 
-/* Glassmorphic Panel styling with subtle neon glow borders */
+/* Crisp Clean White Card with soft colorful drop shadow */
 .glass {
-  background: rgba(13, 19, 35, 0.65) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(99, 102, 241, 0.15) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
 }
 
 .glass-accent {
-  background: rgba(0, 245, 255, 0.03) !important;
-  border: 1px solid rgba(0, 245, 255, 0.15) !important;
+  background: rgba(99, 102, 241, 0.03);
+  border: 1px solid #e2e8f0;
 }
 
-/* Futuristic smooth scale with Cyber Glow on hover */
+/* Professional smooth transitions */
 .hover-scale {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s ease-in-out;
 }
 .hover-scale:hover {
-  border-color: rgba(0, 245, 255, 0.35) !important;
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.15) !important;
-  transform: translateY(-2px);
-}
-
-/* Input fields focus style overrides for futuristic glow */
-input:focus, select:focus, textarea:focus {
-  border-color: #00f5ff !important;
-  box-shadow: 0 0 10px rgba(0, 245, 255, 0.25) !important;
-}
-
-/* Custom cyber button utility */
-.btn-cyber {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s ease-in-out;
-}
-.btn-cyber::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: skewX(-25deg);
-  transition: 0.75s;
-}
-.btn-cyber:hover::after {
-  left: 125%;
-}
-
-/* Global utility class overrides to convert the Light UI theme into Dark Cyber Theme */
-
-/* Background replacements */
-.bg-background {
-  background-color: #060913 !important;
-}
-.bg-white {
-  background-color: rgba(13, 19, 35, 0.75) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.bg-slate-50 {
-  background-color: #080c16 !important;
-}
-.bg-slate-100 {
-  background-color: #101626 !important;
-}
-.bg-slate-200 {
-  background-color: #1a2333 !important;
-}
-
-/* Hover background states */
-.hover\:bg-slate-50:hover {
-  background-color: rgba(99, 102, 241, 0.08) !important;
-}
-.hover\:bg-slate-100:hover {
-  background-color: rgba(99, 102, 241, 0.12) !important;
-}
-.hover\:bg-slate-200:hover {
-  background-color: rgba(99, 102, 241, 0.18) !important;
-}
-
-/* Border overrides */
-.border-slate-100, .border-slate-200, .border-card-border {
-  border-color: rgba(99, 102, 241, 0.15) !important;
-}
-
-/* Text overrides */
-.text-slate-900, .text-slate-950, .text-slate-800, .text-text {
-  color: #f8fafc !important;
-}
-.text-slate-700, .text-slate-600 {
-  color: #cbd5e1 !important;
-}
-.text-slate-500, .text-text-muted {
-  color: #94a3b8 !important;
-}
-
-/* Special button & element states */
-.bg-slate-950 {
-  background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%) !important;
-  border: none !important;
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.25) !important;
-}
-.hover\:bg-slate-900:hover {
-  background: linear-gradient(135deg, #4f46e5 0%, #c084fc 100%) !important;
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4) !important;
-}
-
-/* Recharts chart customization to prevent dark-on-dark labels */
-.recharts-text {
-  fill: #94a3b8 !important;
-}
-.recharts-cartesian-grid-horizontal line, .recharts-cartesian-grid-vertical line {
-  stroke: rgba(99, 102, 241, 0.1) !important;
-}
-.recharts-default-tooltip {
-  background-color: #0d1326 !important;
-  border: 1px solid rgba(99, 102, 241, 0.3) !important;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
-}
-.recharts-tooltip-label {
-  color: #f8fafc !important;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.08);
 }
