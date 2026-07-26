@@ -163,12 +163,12 @@ export default function WorkoutHistory() {
         </div>
 
         {/* Action Controls */}
-        <div className="flex w-full sm:w-auto items-center gap-3">
+        <div className="flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3">
           {isAdmin && (
             <select
               value={selectedClientId}
               onChange={(e) => setSelectedClientId(e.target.value)}
-              className="px-4 py-3 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-primary font-bold shadow-sm"
+              className="w-full sm:w-auto px-4 py-3 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-primary font-bold shadow-sm"
             >
               {clients.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -179,7 +179,7 @@ export default function WorkoutHistory() {
           )}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 py-3 px-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20 text-sm shrink-0"
+            className="flex items-center justify-center gap-2 py-3 px-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20 text-sm w-full sm:w-auto"
           >
             <Plus className="w-4 h-4" />
             <span>{t('logWorkoutBtn')}</span>
