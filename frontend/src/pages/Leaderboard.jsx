@@ -14,7 +14,7 @@ export default function Leaderboard() {
   // Filters State
   const [category, setCategory] = useState('weightLoss'); // weightLoss, benchPress, squat, streak, cardio, attendance
   const [period, setPeriod] = useState('monthly'); // weekly, monthly, yearly
-  const [program, setProgram] = useState('ALL'); // ALL, CUTTING, MAINTENANCE, BULKING
+  const [program, setProgram] = useState('CUTTING'); // CUTTING, MAINTENANCE, BULKING
   const [board, setBoard] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +29,7 @@ export default function Leaderboard() {
         params: {
           category,
           period,
-          program: program === 'ALL' ? undefined : program
+          program
         }
       });
       setBoard(res.data.leaderboard);
@@ -87,18 +87,18 @@ export default function Leaderboard() {
             <Filter className="w-4 h-4 text-indigo-600" />
             <span>Kategori Program:</span>
           </span>
-          <div className="flex items-center gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350 w-full sm:w-auto">
-            {['ALL', 'CUTTING', 'MAINTENANCE', 'BULKING'].map((prog) => (
+          <div className="flex flex-wrap items-center gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350 w-full sm:w-auto">
+            {['CUTTING', 'MAINTENANCE', 'BULKING'].map((prog) => (
               <button
                 key={prog}
                 onClick={() => setProgram(prog)}
-                className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-lg uppercase transition-all text-center ${
+                className={`flex-1 sm:flex-none px-2 py-1.5 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-bold rounded-lg uppercase transition-all text-center ${
                   program === prog
                     ? 'bg-indigo-600 text-white shadow-md'
                     : 'text-slate-700 hover:bg-slate-300 hover:text-slate-950'
                 }`}
               >
-                {prog === 'ALL' ? 'Semua' : prog}
+                {prog}
               </button>
             ))}
           </div>
