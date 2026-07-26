@@ -291,7 +291,7 @@ export default function WorkoutHistory() {
                     required
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
+                    className="w-full block min-w-0 px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
                   />
                 </div>
                 <div className="space-y-1.5">
