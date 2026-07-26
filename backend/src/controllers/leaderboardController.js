@@ -48,30 +48,34 @@ const getLeaderboard = async (req, res) => {
         const latestWeight = c.weightLogs[0]?.weight ?? c.initialWeight;
         const targetWeight = c.targetWeight;
         const initialWeight = c.initialWeight;
-
-        // Direction: negative diff = needs to lose weight (CUTTING), positive = needs to gain (BULKING)
-        const totalNeeded = targetWeight - initialWeight; // e.g. -10 for cutting, +8 for bulking
-        const progressMade = latestWeight - initialWeight;  // how much they've actually moved
+        const prog = c.program; // 'CUTTING', 'BULKING', 'MAINTENANCE'
 
         let progressPercent = 0;
-        let progressKg = 0;
         let label = '';
 
-        if (Math.abs(totalNeeded) < 0.1) {
-          // Already at target from the start
-          progressPercent = 100;
-          progressKg = 0;
-          label = 'Target tercapai sejak awal';
-        } else if (totalNeeded < 0) {
-          // CUTTING: needs to lose weight
-          progressKg = initialWeight - latestWeight; // positive = lost weight
-          progressPercent = Math.min(100, (progressKg / Math.abs(totalNeeded)) * 100);
-          label = `Turun: ${progressKg.toFixed(1)} kg (Target turun ${Math.abs(totalNeeded).toFixed(1)} kg)`;
+        if (prog === 'CUTTING') {
+          const totalNeeded = initialWeight - targetWeight;
+          const lostWeight = initialWeight - latestWeight; // positive = lost weight
+          if (totalNeeded <= 0.1) {
+            progressPercent = latestWeight <= targetWeight ? 100 : 0;
+          } else {
+            progressPercent = Math.min(100, (lostWeight / totalNeeded) * 100);
+          }
+          label = `Turun: ${Math.max(0, lostWeight).toFixed(1)} kg (Target turun ${Math.max(0, totalNeeded).toFixed(1)} kg)`;
+        } else if (prog === 'BULKING') {
+          const totalNeeded = targetWeight - initialWeight;
+          const gainedWeight = latestWeight - initialWeight; // positive = gained weight
+          if (totalNeeded <= 0.1) {
+            progressPercent = latestWeight >= targetWeight ? 100 : 0;
+          } else {
+            progressPercent = Math.min(100, (gainedWeight / totalNeeded) * 100);
+          }
+          label = `Naik: ${Math.max(0, gainedWeight).toFixed(1)} kg (Target naik ${Math.max(0, totalNeeded).toFixed(1)} kg)`;
         } else {
-          // BULKING: needs to gain weight
-          progressKg = latestWeight - initialWeight; // positive = gained weight
-          progressPercent = Math.min(100, (progressKg / totalNeeded) * 100);
-          label = `Naik: ${progressKg.toFixed(1)} kg (Target naik ${totalNeeded.toFixed(1)} kg)`;
+          // MAINTENANCE
+          const deviation = Math.abs(latestWeight - initialWeight);
+          progressPercent = Math.max(0, 100 - (deviation * 20)); // -20% score for every 1kg deviation
+          label = `Deviasi: ${deviation.toFixed(1)} kg (Stabil menjaga berat badan)`;
         }
 
         return {
@@ -80,7 +84,7 @@ const getLeaderboard = async (req, res) => {
           name: c.user.name,
           value: parseFloat(Math.max(0, progressPercent).toFixed(1)),
           unit: '%',
-          details: label || `${initialWeight}kg → ${latestWeight}kg (Target: ${targetWeight}kg)`,
+          details: label || `${initialWeight}kg → ${latestWeight}kg`,
         };
       }).sort((a, b) => b.value - a.value);
     }
