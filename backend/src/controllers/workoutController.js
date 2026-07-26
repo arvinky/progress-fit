@@ -294,8 +294,85 @@ const copySchedule = async (req, res) => {
   }
 };
 
+// POST /api/workout/sessions/:sessionId/exercises
+const addExerciseToSession = async (req, res) => {
+  try {
+    const sessionId = parseInt(req.params.sessionId);
+    const { exerciseName, sets, reps, weight, rpe, note } = req.body;
+
+    // Find the session to verify it exists and get clientId
+    const session = await prisma.workoutSession.findUnique({
+      where: { id: sessionId },
+      include: { exercises: true }
+    });
+
+    if (!session) {
+      return res.status(404).json({ message: 'Sesi latihan tidak ditemukan' });
+    }
+
+    const { clientId } = session;
+
+    // 1. Create the new exercise
+    const exercise = await prisma.workoutExercise.create({
+      data: {
+        sessionId,
+        exerciseName,
+        sets: parseInt(sets),
+        reps: parseInt(reps),
+        weight: parseFloat(weight),
+        rpe: rpe ? parseInt(rpe) : null,
+        note,
+      }
+    });
+
+    // 2. Re-calculate workout session metrics (totalSets, totalReps, totalVolume)
+    const allExercises = [...session.exercises, exercise];
+    let totalSets = 0;
+    let totalReps = 0;
+    let totalVolume = 0;
+
+    allExercises.forEach((ex) => {
+      totalSets += parseInt(ex.sets || 0);
+      totalReps += parseInt(ex.sets || 0) * parseInt(ex.reps || 0);
+      totalVolume += parseFloat(ex.weight || 0) * parseInt(ex.sets || 0) * parseInt(ex.reps || 0);
+    });
+
+    await prisma.workoutSession.update({
+      where: { id: sessionId },
+      data: {
+        totalSets,
+        totalReps,
+        totalVolume,
+      }
+    });
+
+    // 3. Check and update Personal Records (PR) automatically for this exercise
+    const currentPR = await prisma.personalRecord.findFirst({
+      where: { clientId, exerciseName },
+      orderBy: { weight: 'desc' },
+    });
+
+    if (!currentPR || parseFloat(weight) > currentPR.weight) {
+      await prisma.personalRecord.create({
+        data: {
+          clientId,
+          exerciseName,
+          weight: parseFloat(weight),
+          reps: parseInt(reps),
+          achievedAt: session.startTime,
+        },
+      });
+    }
+
+    res.status(201).json({ message: 'Gerakan berhasil ditambahkan', exercise });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Terjadi kesalahan server' });
+  }
+};
+
 module.exports = {
-  getWorkoutSessions, addWorkoutSession, deleteWorkoutSession,
+  getWorkoutSessions, addWorkoutSession, deleteWorkoutSession, addExerciseToSession,
   getPersonalRecords,
   getStrengthTargets, setStrengthTarget,
   getSchedules, addSchedule, updateSchedule, deleteSchedule, copySchedule,

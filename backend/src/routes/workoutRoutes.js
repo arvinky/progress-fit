@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {
-  getWorkoutSessions, addWorkoutSession, deleteWorkoutSession,
+  getWorkoutSessions, addWorkoutSession, deleteWorkoutSession, addExerciseToSession,
   getPersonalRecords,
   getStrengthTargets, setStrengthTarget,
   getSchedules, addSchedule, updateSchedule, deleteSchedule, copySchedule,
@@ -12,6 +12,7 @@ const { authenticate, requireAdmin, requireClientOrAdmin } = require('../middlew
 router.get('/sessions/:clientId', authenticate, requireClientOrAdmin, getWorkoutSessions);
 router.post('/sessions/:clientId', authenticate, requireClientOrAdmin, addWorkoutSession);
 router.delete('/sessions/:sessionId', authenticate, requireClientOrAdmin, deleteWorkoutSession);
+router.post('/sessions/:sessionId/exercises', authenticate, requireClientOrAdmin, addExerciseToSession);
 
 // Personal Records
 router.get('/pr/:clientId', authenticate, requireClientOrAdmin, getPersonalRecords);
