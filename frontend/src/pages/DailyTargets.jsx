@@ -287,7 +287,7 @@ export default function DailyTargets() {
             </div>
 
             {/* Compliance Feed Log (Admin/PT view) */}
-            <div className="glass rounded-3xl p-6 border border-card-border/80">
+            <div className="glass rounded-3xl p-4 sm:p-6 border border-card-border/80">
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <AlertCircle className="w-5 h-5 text-indigo-600" />
                 <span>{t('complianceCheckinHistoryTitle')}</span>

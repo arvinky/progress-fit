@@ -159,7 +159,7 @@ export default function WorkoutHistory() {
           {sessions.map((sess) => (
             <div
               key={sess.id}
-              className="glass border border-card-border/80 rounded-3xl p-6 relative overflow-hidden transition-all hover:shadow-sm"
+              className="glass border border-card-border/80 rounded-3xl p-4 sm:p-6 relative overflow-hidden transition-all hover:shadow-sm"
             >
               {/* Header Info */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-card-border/60">
@@ -171,15 +171,20 @@ export default function WorkoutHistory() {
                   <div className="flex items-center gap-4 text-xs text-text-muted mt-1.5 flex-wrap">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-indigo-600" />
-                      <span className="text-[11px] sm:text-xs font-semibold whitespace-nowrap">
-                        {new Date(sess.startTime).toLocaleDateString('id-ID', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric'
-                        })} {new Date(sess.startTime).toLocaleTimeString('id-ID', {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
+                      <span className="text-[11px] sm:text-xs font-semibold flex flex-wrap gap-x-1.5">
+                        <span>
+                          {new Date(sess.startTime).toLocaleDateString('id-ID', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric'
+                          })}
+                        </span>
+                        <span className="text-slate-450">
+                          {new Date(sess.startTime).toLocaleTimeString('id-ID', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
                       </span>
                     </span>
                     <span className="flex items-center gap-1">
