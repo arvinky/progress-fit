@@ -10,7 +10,8 @@ import {
   Sparkles,
   RefreshCw,
   Plus,
-  X
+  X,
+  Trash2
 } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
@@ -107,6 +108,18 @@ export default function AdminClients() {
       fetchClients();
     } catch (error) {
       alert('Gagal mengubah status keaktifan client');
+    }
+  };
+
+  const handleDelete = async (id, name) => {
+    const confirmDelete = window.confirm(`Apakah Anda yakin ingin menghapus client "${name}" secara permanen? Semua data latihan, berat badan, personal record, dan jadwal terkait akan ikut terhapus.`);
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`${API_URL}/clients/${id}`);
+      fetchClients();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Gagal menghapus client');
     }
   };
 
@@ -264,12 +277,20 @@ export default function AdminClients() {
                         )}
                       </button>
                     </td>
-                    <td className="p-4 text-right">
+                    <td className="p-4 text-right flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEditModal(c)}
                         className="p-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl text-slate-700 transition-all"
+                        title="Edit Client"
                       >
                         <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(c.id, c.name)}
+                        className="p-2 bg-slate-100 hover:bg-danger/10 hover:text-danger border border-slate-200 hover:border-danger/30 rounded-xl transition-all"
+                        title="Hapus Client"
+                      >
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
                   </tr>

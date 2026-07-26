@@ -260,4 +260,42 @@ const getDashboardStats = async (req, res) => {
   }
 };
 
-module.exports = { getAllClients, getClientById, createClient, updateClient, toggleClientActive, getMyData, getDashboardStats };
+// DELETE /api/clients/:id - Admin deletes a client and all associated user data
+const deleteClient = async (req, res) => {
+  try {
+    const clientId = parseInt(req.params.id);
+
+    // Get the client to find the userId
+    const client = await prisma.client.findUnique({
+      where: { id: clientId }
+    });
+
+    if (!client) {
+      return res.status(404).json({ message: 'Client tidak ditemukan' });
+    }
+
+    const { userId } = client;
+
+    // Delete associated reminders first (both sent and received) to prevent foreign key errors
+    await prisma.reminder.deleteMany({
+      where: {
+        OR: [
+          { senderId: userId },
+          { receiverId: userId }
+        ]
+      }
+    });
+
+    // Delete the User (which cascade deletes the Client profile and all client-related models due to schema onDelete: Cascade)
+    await prisma.user.delete({
+      where: { id: userId }
+    });
+
+    res.json({ message: 'Client dan semua data terkait berhasil dihapus' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Terjadi kesalahan server saat menghapus client' });
+  }
+};
+
+module.exports = { getAllClients, getClientById, createClient, updateClient, toggleClientActive, getMyData, getDashboardStats, deleteClient };

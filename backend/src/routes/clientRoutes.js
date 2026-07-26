@@ -8,6 +8,7 @@ const {
   toggleClientActive,
   getMyData,
   getDashboardStats,
+  deleteClient,
 } = require('../controllers/clientController');
 const { authenticate, requireAdmin, requireClientOrAdmin } = require('../middleware/auth');
 
@@ -18,5 +19,6 @@ router.get('/:id', authenticate, requireClientOrAdmin, getClientById);
 router.post('/', authenticate, requireAdmin, createClient);
 router.put('/:id', authenticate, requireClientOrAdmin, updateClient);
 router.patch('/:id/toggle-active', authenticate, requireAdmin, toggleClientActive);
+router.delete('/:id', authenticate, requireAdmin, deleteClient);
 
 module.exports = router;
