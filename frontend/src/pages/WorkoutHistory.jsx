@@ -19,8 +19,8 @@ export default function WorkoutHistory() {
 
   // Form Modal State
   const [isOpen, setIsOpen] = useState(false);
-  const [sessionName, setSessionName] = useState('');
-  const [durationMin, setDurationMin] = useState('');
+  const [sessionName, setSessionName] = useState('Fullbody');
+  const [durationMin, setDurationMin] = useState('90');
   const [note, setNote] = useState('');
   const [startTime, setStartTime] = useState(new Date().toISOString().split('T')[0] + 'T10:00');
 
@@ -103,8 +103,8 @@ export default function WorkoutHistory() {
       });
       setIsOpen(false);
       // Reset Form
-      setSessionName('');
-      setDurationMin('');
+      setSessionName('Fullbody');
+      setDurationMin('90');
       setNote('');
       setExercises([{ exerciseName: '', sets: '', reps: '', weight: '', rpe: '', note: '' }]);
       loadSessions();
@@ -429,13 +429,19 @@ export default function WorkoutHistory() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-text-muted">{t('sessionNameLabel')}</label>
-                  <input
-                    type="text"
-                    required
+                  <select
                     value={sessionName}
                     onChange={(e) => setSessionName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
-                  />
+                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650 font-bold"
+                  >
+                    <option value="Fullbody">Fullbody</option>
+                    <option value="Upper">Upper</option>
+                    <option value="Lower">Lower</option>
+                    <option value="Arm">Arm</option>
+                    <option value="Push">Push</option>
+                    <option value="Pull">Pull</option>
+                    <option value="Legs">Legs</option>
+                  </select>
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-text-muted">{t('dateTimeLabel')}</label>
@@ -449,13 +455,13 @@ export default function WorkoutHistory() {
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-text-muted">{t('durationLabel')}</label>
-                  <input
-                    type="number"
-                    required
+                  <select
                     value={durationMin}
                     onChange={(e) => setDurationMin(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650"
-                  />
+                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-650 font-bold"
+                  >
+                    <option value="90">60-120 Menit</option>
+                  </select>
                 </div>
               </div>
 
