@@ -328,7 +328,7 @@ export default function Cardio() {
                     required
                     value={loggedAt}
                     onChange={(e) => setLoggedAt(e.target.value)}
-                    className="w-full block min-w-0 px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
+                    className="w-full block min-w-0 appearance-none px-3 py-2 sm:px-4 sm:py-2.5 bg-slate-50 focus:bg-white border border-card-border rounded-xl text-text text-xs sm:text-sm focus:outline-none focus:border-indigo-650"
                   />
                 </div>
 
