@@ -3,7 +3,7 @@ const prisma = require('../lib/prisma');
 // GET /api/leaderboard
 const getLeaderboard = async (req, res) => {
   try {
-    const { category, period } = req.query; // category: weightLoss, benchPress, squat, streak, cardio, attendance. period: weekly, monthly, yearly
+    const { category, period, program } = req.query; // category: weightLoss, benchPress, squat, streak, cardio, attendance. period: weekly, monthly, yearly. program: BULKING, CUTTING, MAINTENANCE
     const isClient = req.user.role === 'CLIENT';
     const userId = req.user.id;
 
@@ -23,10 +23,18 @@ const getLeaderboard = async (req, res) => {
 
     let boardData = [];
 
+    // Helper to validate and check program
+    const validProgram = ['BULKING', 'CUTTING', 'MAINTENANCE'].includes(program) ? program : null;
+
     // 1. Weight Progress Category (Progress menuju target berat badan)
     if (category === 'weightLoss') {
+      const whereClause = { isActive: true };
+      if (validProgram) {
+        whereClause.program = validProgram;
+      }
+
       const clients = await prisma.client.findMany({
-        where: { isActive: true },
+        where: whereClause,
         include: {
           user: { select: { id: true, name: true } },
           weightLogs: {
@@ -79,11 +87,16 @@ const getLeaderboard = async (req, res) => {
 
     // 2. Bench Press Category (Highest PR)
     else if (category === 'benchPress') {
+      const wherePr = {
+        exerciseName: { contains: 'bench press' },
+        achievedAt: { gte: startDate },
+      };
+      if (validProgram) {
+        wherePr.client = { program: validProgram };
+      }
+
       const prs = await prisma.personalRecord.findMany({
-        where: {
-          exerciseName: { contains: 'bench press' },
-          achievedAt: { gte: startDate },
-        },
+        where: wherePr,
         include: {
           client: { include: { user: { select: { id: true, name: true } } } },
         },
@@ -110,11 +123,16 @@ const getLeaderboard = async (req, res) => {
 
     // 3. Squat Category (Highest PR)
     else if (category === 'squat') {
+      const wherePr = {
+        exerciseName: { contains: 'squat' },
+        achievedAt: { gte: startDate },
+      };
+      if (validProgram) {
+        wherePr.client = { program: validProgram };
+      }
+
       const prs = await prisma.personalRecord.findMany({
-        where: {
-          exerciseName: { contains: 'squat' },
-          achievedAt: { gte: startDate },
-        },
+        where: wherePr,
         include: {
           client: { include: { user: { select: { id: true, name: true } } } },
         },
@@ -141,8 +159,13 @@ const getLeaderboard = async (req, res) => {
 
     // 4. Streak Latihan Terpanjang (Total workout sessions in range)
     else if (category === 'streak') {
+      const whereSess = { startTime: { gte: startDate } };
+      if (validProgram) {
+        whereSess.client = { program: validProgram };
+      }
+
       const sessions = await prisma.workoutSession.findMany({
-        where: { startTime: { gte: startDate } },
+        where: whereSess,
         include: {
           client: { include: { user: { select: { id: true, name: true } } } },
         },
@@ -174,8 +197,13 @@ const getLeaderboard = async (req, res) => {
 
     // 5. Cardio Terbanyak (Total Cardio Duration)
     else if (category === 'cardio') {
+      const whereCardio = { loggedAt: { gte: startDate } };
+      if (validProgram) {
+        whereCardio.client = { program: validProgram };
+      }
+
       const logs = await prisma.cardioLog.findMany({
-        where: { loggedAt: { gte: startDate } },
+        where: whereCardio,
         include: {
           client: { include: { user: { select: { id: true, name: true } } } },
         },
@@ -209,11 +237,16 @@ const getLeaderboard = async (req, res) => {
 
     // 6. Kehadiran Terbaik (Daily Target workoutDone count)
     else if (category === 'attendance') {
+      const whereTarget = {
+        date: { gte: startDate },
+        workoutDone: true,
+      };
+      if (validProgram) {
+        whereTarget.client = { program: validProgram };
+      }
+
       const targets = await prisma.dailyTarget.findMany({
-        where: {
-          date: { gte: startDate },
-          workoutDone: true,
-        },
+        where: whereTarget,
         include: {
           client: { include: { user: { select: { id: true, name: true } } } },
         },

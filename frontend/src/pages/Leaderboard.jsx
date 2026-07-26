@@ -14,18 +14,23 @@ export default function Leaderboard() {
   // Filters State
   const [category, setCategory] = useState('weightLoss'); // weightLoss, benchPress, squat, streak, cardio, attendance
   const [period, setPeriod] = useState('monthly'); // weekly, monthly, yearly
+  const [program, setProgram] = useState('ALL'); // ALL, CUTTING, MAINTENANCE, BULKING
   const [board, setBoard] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadLeaderboard();
-  }, [category, period]);
+  }, [category, period, program]);
 
   async function loadLeaderboard() {
     setLoading(true);
     try {
       const res = await axios.get(`${API_URL}/leaderboard`, {
-        params: { category, period }
+        params: {
+          category,
+          period,
+          program: program === 'ALL' ? undefined : program
+        }
       });
       setBoard(res.data.leaderboard);
     } catch (error) {
@@ -75,25 +80,51 @@ export default function Leaderboard() {
       </div>
 
       {/* Filter range selector */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50 p-4 border border-card-border rounded-2xl">
-        <span className="text-xs font-bold text-text-muted flex items-center gap-1">
-          <Filter className="w-4 h-4 text-indigo-600" />
-          <span>{t('timeframeLabel')}</span>
-        </span>
-        <div className="flex items-center w-full sm:w-auto gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350">
-          {['weekly', 'monthly', 'yearly'].map((p) => (
-            <button
-              key={p}
-              onClick={() => setPeriod(p)}
-              className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-lg uppercase transition-all text-center ${
-                period === p
-                  ? 'bg-indigo-600 text-white shadow-md'
-                  : 'text-slate-700 hover:bg-slate-300 hover:text-slate-950'
-              }`}
-            >
-              {p === 'weekly' ? t('weeklyLabelLeaderboard') : p === 'monthly' ? t('monthlyLabelLeaderboard') : t('yearlyLabelLeaderboard')}
-            </button>
-          ))}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-50 p-4 border border-card-border rounded-2xl">
+        {/* Program Filter */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full md:w-auto">
+          <span className="text-xs font-bold text-text-muted flex items-center gap-1">
+            <Filter className="w-4 h-4 text-indigo-600" />
+            <span>Kategori Program:</span>
+          </span>
+          <div className="flex items-center gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350 w-full sm:w-auto">
+            {['ALL', 'CUTTING', 'MAINTENANCE', 'BULKING'].map((prog) => (
+              <button
+                key={prog}
+                onClick={() => setProgram(prog)}
+                className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-lg uppercase transition-all text-center ${
+                  program === prog
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'text-slate-700 hover:bg-slate-300 hover:text-slate-950'
+                }`}
+              >
+                {prog === 'ALL' ? 'Semua' : prog}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Timeframe Filter */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full md:w-auto">
+          <span className="text-xs font-bold text-text-muted flex items-center gap-1">
+            <Calendar className="w-4 h-4 text-indigo-600" />
+            <span>{t('timeframeLabel')}:</span>
+          </span>
+          <div className="flex items-center w-full sm:w-auto gap-1 bg-slate-200 p-1 rounded-xl border border-slate-350">
+            {['weekly', 'monthly', 'yearly'].map((p) => (
+              <button
+                key={p}
+                onClick={() => setPeriod(p)}
+                className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-lg uppercase transition-all text-center ${
+                  period === p
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'text-slate-700 hover:bg-slate-300 hover:text-slate-950'
+                }`}
+              >
+                {p === 'weekly' ? t('weeklyLabelLeaderboard') : p === 'monthly' ? t('monthlyLabelLeaderboard') : t('yearlyLabelLeaderboard')}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
