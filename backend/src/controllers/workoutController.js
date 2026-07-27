@@ -371,8 +371,126 @@ const addExerciseToSession = async (req, res) => {
   }
 };
 
+// PUT /api/workout/exercises/:exerciseId
+const updateExercise = async (req, res) => {
+  try {
+    const exerciseId = parseInt(req.params.exerciseId);
+    const { exerciseName, sets, reps, weight, rpe, note } = req.body;
+
+    const existing = await prisma.workoutExercise.findUnique({
+      where: { id: exerciseId },
+      include: { session: true }
+    });
+
+    if (!existing) {
+      return res.status(404).json({ message: 'Gerakan tidak ditemukan' });
+    }
+
+    const updated = await prisma.workoutExercise.update({
+      where: { id: exerciseId },
+      data: {
+        exerciseName,
+        sets: parseInt(sets),
+        reps: parseInt(reps),
+        weight: parseFloat(weight),
+        rpe: rpe ? parseInt(rpe) : null,
+        note: note || null,
+      }
+    });
+
+    // Re-calculate session metrics
+    const allExercises = await prisma.workoutExercise.findMany({
+      where: { sessionId: existing.sessionId }
+    });
+
+    let totalSets = 0;
+    let totalReps = 0;
+    let totalVolume = 0;
+
+    allExercises.forEach((ex) => {
+      totalSets += parseInt(ex.sets || 0);
+      totalReps += parseInt(ex.sets || 0) * parseInt(ex.reps || 0);
+      totalVolume += parseFloat(ex.weight || 0) * parseInt(ex.sets || 0) * parseInt(ex.reps || 0);
+    });
+
+    await prisma.workoutSession.update({
+      where: { id: existing.sessionId },
+      data: { totalSets, totalReps, totalVolume }
+    });
+
+    // Check PR update
+    if (existing.session && existing.session.clientId) {
+      const currentPR = await prisma.personalRecord.findFirst({
+        where: { clientId: existing.session.clientId, exerciseName },
+        orderBy: { weight: 'desc' },
+      });
+      if (!currentPR || parseFloat(weight) > currentPR.weight) {
+        await prisma.personalRecord.create({
+          data: {
+            clientId: existing.session.clientId,
+            exerciseName,
+            weight: parseFloat(weight),
+            reps: parseInt(reps),
+            achievedAt: existing.session.startTime || new Date(),
+          },
+        });
+      }
+    }
+
+    res.json({ message: 'Gerakan berhasil diperbarui', exercise: updated });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Terjadi kesalahan server' });
+  }
+};
+
+// DELETE /api/workout/exercises/:exerciseId
+const deleteExercise = async (req, res) => {
+  try {
+    const exerciseId = parseInt(req.params.exerciseId);
+
+    const existing = await prisma.workoutExercise.findUnique({
+      where: { id: exerciseId }
+    });
+
+    if (!existing) {
+      return res.status(404).json({ message: 'Gerakan tidak ditemukan' });
+    }
+
+    await prisma.workoutExercise.delete({
+      where: { id: exerciseId }
+    });
+
+    // Re-calculate session metrics
+    const allExercises = await prisma.workoutExercise.findMany({
+      where: { sessionId: existing.sessionId }
+    });
+
+    let totalSets = 0;
+    let totalReps = 0;
+    let totalVolume = 0;
+
+    allExercises.forEach((ex) => {
+      totalSets += parseInt(ex.sets || 0);
+      totalReps += parseInt(ex.sets || 0) * parseInt(ex.reps || 0);
+      totalVolume += parseFloat(ex.weight || 0) * parseInt(ex.sets || 0) * parseInt(ex.reps || 0);
+    });
+
+    await prisma.workoutSession.update({
+      where: { id: existing.sessionId },
+      data: { totalSets, totalReps, totalVolume }
+    });
+
+    res.json({ message: 'Gerakan berhasil dihapus' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Terjadi kesalahan server' });
+  }
+};
+
 module.exports = {
   getWorkoutSessions, addWorkoutSession, deleteWorkoutSession, addExerciseToSession,
+  updateExercise, deleteExercise,
   getPersonalRecords,
   getStrengthTargets, setStrengthTarget,
   getSchedules, addSchedule, updateSchedule, deleteSchedule, copySchedule,

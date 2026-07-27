@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuthStore } from '../store/useAuthStore';
 import useTranslation from '../hooks/useTranslation';
-import { History, Plus, Trash2, Calendar, Clock, Dumbbell, ShieldAlert, Sparkles, X } from 'lucide-react';
+import { History, Plus, Trash2, Calendar, Clock, Dumbbell, ShieldAlert, Sparkles, X, Edit2 } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
@@ -37,6 +37,15 @@ export default function WorkoutHistory() {
   const [newExWeight, setNewExWeight] = useState(20);
   const [newExRpe, setNewExRpe] = useState('');
   const [newExNote, setNewExNote] = useState('');
+
+  // Edit Exercise Modal State
+  const [editingExercise, setEditingExercise] = useState(null);
+  const [editExName, setEditExName] = useState('');
+  const [editExSets, setEditExSets] = useState('');
+  const [editExReps, setEditExReps] = useState('');
+  const [editExWeight, setEditExWeight] = useState('');
+  const [editExRpe, setEditExRpe] = useState('');
+  const [editExNote, setEditExNote] = useState('');
 
   // Load clients if Admin
   useEffect(() => {
@@ -150,6 +159,45 @@ export default function WorkoutHistory() {
       loadSessions();
     } catch (error) {
       alert(t('workoutDeleteError'));
+    }
+  };
+
+  const handleStartEditExercise = (ex) => {
+    setEditingExercise(ex);
+    setEditExName(ex.exerciseName || '');
+    setEditExSets(ex.sets ?? '');
+    setEditExReps(ex.reps ?? '');
+    setEditExWeight(ex.weight ?? '');
+    setEditExRpe(ex.rpe ?? '');
+    setEditExNote(ex.note || '');
+  };
+
+  const handleSaveEditExercise = async (e) => {
+    e.preventDefault();
+    if (!editExName.trim() || !editingExercise) return;
+    try {
+      await axios.put(`${API_URL}/workout/exercises/${editingExercise.id}`, {
+        exerciseName: editExName,
+        sets: parseInt(editExSets) || 0,
+        reps: parseInt(editExReps) || 0,
+        weight: parseFloat(editExWeight) || 0,
+        rpe: editExRpe ? parseInt(editExRpe) : null,
+        note: editExNote,
+      });
+      setEditingExercise(null);
+      loadSessions();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Gagal memperbarui gerakan');
+    }
+  };
+
+  const handleDeleteExercise = async (exerciseId) => {
+    if (!confirm(language === 'id' ? 'Yakin ingin menghapus gerakan ini?' : 'Are you sure you want to delete this exercise?')) return;
+    try {
+      await axios.delete(`${API_URL}/workout/exercises/${exerciseId}`);
+      loadSessions();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Gagal menghapus gerakan');
     }
   };
 
@@ -267,12 +315,21 @@ export default function WorkoutHistory() {
                       <th className="py-2.5 px-4">{t('weight')}</th>
                       <th className="py-2.5 px-4">RPE</th>
                       <th className="py-2.5 px-4 text-right">{t('volume')}</th>
+                      <th className="py-2.5 px-4 text-right">{language === 'id' ? 'Aksi' : 'Actions'}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-card-border/30 text-sm">
                     {sess.exercises.map((ex) => (
                       <tr key={ex.id} className="hover:bg-slate-50 transition-all">
-                        <td className="py-3 px-4 font-bold text-text">{ex.exerciseName}</td>
+                        <td className="py-3 px-4">
+                          <div className="font-bold text-text">{ex.exerciseName}</div>
+                          {ex.note && (
+                            <div className="text-xs text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-md inline-flex items-center gap-1.5 mt-1 font-semibold italic shadow-xs">
+                              <span>📝</span>
+                              <span>{ex.note}</span>
+                            </div>
+                          )}
+                        </td>
                         <td className="py-3 px-4">{ex.sets} {t('sets')}</td>
                         <td className="py-3 px-4">{ex.reps} {t('reps')}</td>
                         <td className="py-3 px-4 text-accent font-semibold">{ex.weight} kg</td>
@@ -283,6 +340,26 @@ export default function WorkoutHistory() {
                         </td>
                         <td className="py-3 px-4 text-right text-text-muted font-medium">
                           {ex.sets * ex.reps * ex.weight} kg
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <div className="flex items-center justify-end gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => handleStartEditExercise(ex)}
+                              className="p-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 hover:border-indigo-200 rounded-lg transition-all"
+                              title={language === 'id' ? 'Edit Gerakan' : 'Edit Exercise'}
+                            >
+                              <Edit2 className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteExercise(ex.id)}
+                              className="p-1.5 bg-slate-100 hover:bg-danger/10 hover:text-danger border border-slate-200 hover:border-danger/30 rounded-lg transition-all"
+                              title={language === 'id' ? 'Hapus Gerakan' : 'Delete Exercise'}
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -584,6 +661,120 @@ export default function WorkoutHistory() {
                   className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-lg shadow-indigo-600/10"
                 >
                   {t('saveWorkoutBtn')}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Exercise Modal */}
+      {editingExercise && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+          <div className="bg-white border border-card-border/80 rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-5">
+            <div className="flex justify-between items-center pb-3 border-b border-card-border/60">
+              <div>
+                <h3 className="text-lg font-extrabold text-slate-800">
+                  {language === 'id' ? 'Edit Gerakan Workout' : 'Edit Workout Exercise'}
+                </h3>
+                <p className="text-xs text-text-muted">
+                  {language === 'id' ? 'Perbarui rincian gerakan dan catatan di bawah.' : 'Update exercise details and notes below.'}
+                </p>
+              </div>
+              <button
+                onClick={() => setEditingExercise(null)}
+                className="p-2 text-text-muted hover:text-text rounded-xl hover:bg-slate-100 transition-all"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEditExercise} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-text-muted">{language === 'id' ? 'Nama Gerakan' : 'Exercise Name'}</label>
+                <input
+                  type="text"
+                  required
+                  value={editExName}
+                  onChange={(e) => setEditExName(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm font-bold focus:outline-none focus:border-indigo-600"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-text-muted">Set</label>
+                  <input
+                    type="number"
+                    required
+                    min="1"
+                    value={editExSets}
+                    onChange={(e) => setEditExSets(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm font-bold focus:outline-none focus:border-indigo-600"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-text-muted">{t('reps')}</label>
+                  <input
+                    type="number"
+                    required
+                    min="1"
+                    value={editExReps}
+                    onChange={(e) => setEditExReps(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm font-bold focus:outline-none focus:border-indigo-600"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-text-muted">{t('weight')} (kg)</label>
+                  <input
+                    type="number"
+                    required
+                    step="any"
+                    min="0"
+                    value={editExWeight}
+                    onChange={(e) => setEditExWeight(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm font-bold text-accent focus:outline-none focus:border-indigo-600"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-text-muted">RPE (1-10)</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  placeholder="Opsional (1-10)"
+                  value={editExRpe}
+                  onChange={(e) => setEditExRpe(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm font-bold focus:outline-none focus:border-indigo-600"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-text-muted">{language === 'id' ? 'Catatan Gerakan' : 'Exercise Notes'}</label>
+                <textarea
+                  rows="2"
+                  placeholder={language === 'id' ? 'Misal: Terasa berat pada set akhir, posisi form bagus...' : 'E.g., felt heavy on last set...'}
+                  value={editExNote}
+                  onChange={(e) => setEditExNote(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none resize-none focus:border-indigo-600 font-medium"
+                />
+              </div>
+
+              <div className="pt-3 flex justify-end gap-3 border-t border-card-border/60">
+                <button
+                  type="button"
+                  onClick={() => setEditingExercise(null)}
+                  className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-bold rounded-xl text-xs"
+                >
+                  {t('cancel')}
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-lg shadow-indigo-600/10 transition-all"
+                >
+                  {language === 'id' ? 'Simpan Perubahan' : 'Save Changes'}
                 </button>
               </div>
             </form>

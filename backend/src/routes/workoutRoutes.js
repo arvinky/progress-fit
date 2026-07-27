@@ -2,17 +2,21 @@ const express = require('express');
 const router = express.Router();
 const {
   getWorkoutSessions, addWorkoutSession, deleteWorkoutSession, addExerciseToSession,
+  updateExercise, deleteExercise,
   getPersonalRecords,
   getStrengthTargets, setStrengthTarget,
   getSchedules, addSchedule, updateSchedule, deleteSchedule, copySchedule,
 } = require('../controllers/workoutController');
 const { authenticate, requireAdmin, requireClientOrAdmin } = require('../middleware/auth');
 
-// Sessions
+// Sessions & Exercises
 router.get('/sessions/:clientId', authenticate, requireClientOrAdmin, getWorkoutSessions);
 router.post('/sessions/:clientId', authenticate, requireClientOrAdmin, addWorkoutSession);
 router.delete('/sessions/:sessionId', authenticate, requireClientOrAdmin, deleteWorkoutSession);
 router.post('/sessions/:sessionId/exercises', authenticate, requireClientOrAdmin, addExerciseToSession);
+
+router.put('/exercises/:exerciseId', authenticate, requireClientOrAdmin, updateExercise);
+router.delete('/exercises/:exerciseId', authenticate, requireClientOrAdmin, deleteExercise);
 
 // Personal Records
 router.get('/pr/:clientId', authenticate, requireClientOrAdmin, getPersonalRecords);
