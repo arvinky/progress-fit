@@ -19,7 +19,7 @@ export default function Schedules() {
 
   // Form State - Add Schedule
   const [dayOfWeek, setDayOfWeek] = useState('MONDAY');
-  const [programName, setProgramName] = useState('Push Day');
+  const [programName, setProgramName] = useState('Fullbody Day');
   const [description, setDescription] = useState('');
 
   // Copy Split State
@@ -70,7 +70,7 @@ export default function Schedules() {
         programName,
         description
       });
-      setProgramName('Push Day');
+      setProgramName('Fullbody Day');
       setDescription('');
       loadSchedules();
     } catch (error) {
@@ -246,14 +246,23 @@ export default function Schedules() {
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-text-muted">{t('programNameLabel')}</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Push Day, Pull, Lower Body, Rest"
+                    <select
                       value={programName}
                       onChange={(e) => setProgramName(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-600"
-                    />
+                      className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm focus:outline-none focus:border-indigo-600 font-bold"
+                    >
+                      <option value="Fullbody Day">Fullbody Day</option>
+                      <option value="Upper Day">Upper Day</option>
+                      <option value="Lower Day">Lower Day</option>
+                      <option value="Arm Day">Arm Day</option>
+                      <option value="Push Day">Push Day</option>
+                      <option value="Pull Day">Pull Day</option>
+                      <option value="Leg Day">Leg Day</option>
+                      <option value="Rest Day">Rest Day</option>
+                      <option value="Rest/Cardio">Rest/Cardio</option>
+                      <option value="Rest/Arm Day">Rest/Arm Day</option>
+                      <option value="Rest/Cardio/Arm Day">Rest/Cardio/Arm Day</option>
+                    </select>
                   </div>
 
                   <div className="space-y-1.5">
