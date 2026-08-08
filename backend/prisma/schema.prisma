@@ -49,6 +49,7 @@ model Client {
   dailyTargets    DailyTarget[]
   cardioLogs      CardioLog[]
   strengthTargets StrengthTarget[]
+  clientPackages  ClientPackage[]
 
   @@map("clients")
 }
@@ -256,4 +257,32 @@ enum ReminderStatus {
   SENT
   READ
   UNREAD
+}
+
+model ClientPackage {
+  id            Int      @id @default(autoincrement())
+  clientId      Int
+  packageType   String   // "Private" or "Group"
+  totalSessions Int
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  client        Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  sessions      PackageSession[]
+
+  @@map("client_packages")
+}
+
+model PackageSession {
+  id              Int      @id @default(autoincrement())
+  clientPackageId Int
+  sessionDate     DateTime
+  trainingSplit   String
+  status          String   @default("COMPLETED")
+  createdAt       DateTime @default(now())
+
+  clientPackage   ClientPackage @relation(fields: [clientPackageId], references: [id], onDelete: Cascade)
+
+  @@map("package_sessions")
 }

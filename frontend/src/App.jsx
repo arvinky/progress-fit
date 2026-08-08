@@ -22,6 +22,7 @@ import Leaderboard from './pages/Leaderboard';
 // Role-specific Dashboards
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminClients from './pages/admin/Clients';
+import AdminPackages from './pages/admin/ClientPackages';
 import ClientDashboard from './pages/client/Dashboard';
 
 export default function App() {
@@ -66,6 +67,7 @@ export default function App() {
           <Route path="admin/progress-charts" element={<ProgressCharts />} />
           <Route path="admin/reminders" element={<Reminders />} />
           <Route path="admin/leaderboard" element={<Leaderboard />} />
+          <Route path="admin/packages" element={<AdminPackages />} />
 
           {/* Client Specific Pages */}
           <Route path="client" element={<ClientDashboard />} />

@@ -9,6 +9,7 @@ const trackingRoutes = require('./routes/trackingRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 const reminderRoutes = require('./routes/reminderRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
+const packageRoutes = require('./routes/packageRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -45,6 +46,7 @@ app.use('/api/tracking', trackingRoutes);
 app.use('/api/workout', workoutRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/packages', packageRoutes);
 
 // Health check & Root greeting
 app.get('/', (req, res) => {

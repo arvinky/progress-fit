@@ -17,7 +17,8 @@ import {
   Heart,
   Target,
   Globe,
-  X
+  X,
+  Package
 } from 'lucide-react';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -43,6 +44,7 @@ export default function Sidebar({ isOpen, onClose }) {
     { to: '/admin/progress-charts', label: t('progressCharts'), icon: TrendingUp },
     { to: '/admin/reminders', label: t('reminders'), icon: Bell },
     { to: '/admin/leaderboard', label: t('leaderboard'), icon: Award },
+    { to: '/admin/packages', label: language === 'id' ? 'Paket & Sesi Klien' : 'Client Packages', icon: Package },
   ];
 
   const clientLinks = [
