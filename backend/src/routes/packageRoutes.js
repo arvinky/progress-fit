@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const packageController = require('../controllers/packageController');
-const { authMiddleware, adminMiddleware } = require('../middleware/auth');
+const { authenticate, requireAdmin } = require('../middleware/auth');
 
 // Protect all package routes with admin middleware
-router.use(authMiddleware);
-router.use(adminMiddleware);
+router.use(authenticate);
+router.use(requireAdmin);
 
 router.get('/', packageController.getAllPackages);
 router.post('/', packageController.createPackage);
