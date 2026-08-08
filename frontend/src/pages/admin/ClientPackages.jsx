@@ -260,7 +260,7 @@ export default function ClientPackages() {
                 >
                   <option value="">-- Pilih Klien --</option>
                   {clients.map(c => (
-                    <option key={c.id} value={c.id}>{c.user.name}</option>
+                    <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
                 </select>
               </div>
