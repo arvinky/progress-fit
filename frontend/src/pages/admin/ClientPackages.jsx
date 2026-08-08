@@ -39,7 +39,7 @@ export default function ClientPackages() {
         axios.get(`${API_URL}/clients`)
       ]);
       setPackages(pkgRes.data);
-      setClients(clientRes.data);
+      setClients(clientRes.data.clients || []);
     } catch (error) {
       console.error('Error loading data', error);
       alert('Gagal memuat data paket klien');
