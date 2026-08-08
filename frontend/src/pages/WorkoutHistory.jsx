@@ -6,6 +6,19 @@ import { History, Plus, Trash2, Calendar, Clock, Dumbbell, ShieldAlert, Sparkles
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
+const EXERCISE_LIST = [
+  'Bench Press', 'Incline Bench Press', 'Decline Bench Press', 'Dumbbell Bench Press', 'Pec Deck Fly', 'Cable Crossover',
+  'Squat', 'Leg Press', 'Bulgarian Split Squat', 'Lunges', 'Leg Extension', 'Leg Curl', 'Calf Raises',
+  'Deadlift', 'Romanian Deadlift', 'Pull Up', 'Lat Pulldown', 'Barbell Row', 'Dumbbell Row', 'Seated Cable Row', 'Facepull',
+  'Overhead Press', 'Dumbbell Shoulder Press', 'Lateral Raises', 'Front Raises', 'Reverse Pec Deck',
+  'Bicep Curl', 'Hammer Curl', 'Preacher Curl', 'Cable Bicep Curl',
+  'Triceps Extension', 'Triceps Pushdown', 'Skullcrusher', 'Close Grip Bench Press'
+].sort();
+
+const SETS_LIST = Array.from({ length: 10 }, (_, i) => i + 1);
+const REPS_LIST = Array.from({ length: 30 }, (_, i) => i + 1);
+const WEIGHT_LIST = Array.from({ length: 120 }, (_, i) => (i + 1) * 2.5);
+
 export default function WorkoutHistory() {
   const { user, client: authClient } = useAuthStore();
   const { t, language } = useTranslation();
@@ -385,6 +398,7 @@ export default function WorkoutHistory() {
                         <input
                           type="text"
                           required
+                          list="exercise-options"
                           placeholder="Contoh: Bench Press"
                           value={newExName}
                           onChange={(e) => setNewExName(e.target.value)}
@@ -396,6 +410,7 @@ export default function WorkoutHistory() {
                         <input
                           type="number"
                           required
+                          list="set-options"
                           min="1"
                           value={newExSets}
                           onChange={(e) => setNewExSets(e.target.value)}
@@ -407,6 +422,7 @@ export default function WorkoutHistory() {
                         <input
                           type="number"
                           required
+                          list="rep-options"
                           min="1"
                           value={newExReps}
                           onChange={(e) => setNewExReps(e.target.value)}
@@ -419,6 +435,7 @@ export default function WorkoutHistory() {
                           type="number"
                           step="0.1"
                           required
+                          list="weight-options"
                           value={newExWeight}
                           onChange={(e) => setNewExWeight(e.target.value)}
                           className="w-full px-3 py-2 bg-white border border-card-border rounded-xl text-text text-xs focus:outline-none"
@@ -563,6 +580,7 @@ export default function WorkoutHistory() {
                           <input
                             type="text"
                             required
+                            list="exercise-options"
                             placeholder={t('movementPlaceholder')}
                             value={ex.exerciseName}
                             onChange={(e) => handleExerciseChange(idx, 'exerciseName', e.target.value)}
@@ -573,6 +591,7 @@ export default function WorkoutHistory() {
                           <input
                             type="number"
                             required
+                            list="set-options"
                             placeholder={t('setPlaceholder')}
                             value={ex.sets}
                             onChange={(e) => handleExerciseChange(idx, 'sets', e.target.value)}
@@ -583,6 +602,7 @@ export default function WorkoutHistory() {
                           <input
                             type="number"
                             required
+                            list="rep-options"
                             placeholder={t('repPlaceholder')}
                             value={ex.reps}
                             onChange={(e) => handleExerciseChange(idx, 'reps', e.target.value)}
@@ -593,6 +613,7 @@ export default function WorkoutHistory() {
                           <input
                             type="number"
                             required
+                            list="weight-options"
                             placeholder={t('weightPlaceholder')}
                             value={ex.weight}
                             onChange={(e) => handleExerciseChange(idx, 'weight', e.target.value)}
@@ -695,6 +716,7 @@ export default function WorkoutHistory() {
                 <input
                   type="text"
                   required
+                  list="exercise-options"
                   value={editExName}
                   onChange={(e) => setEditExName(e.target.value)}
                   className="w-full px-4 py-2.5 bg-white border border-card-border rounded-xl text-text text-sm font-bold focus:outline-none focus:border-indigo-600"
@@ -707,6 +729,7 @@ export default function WorkoutHistory() {
                   <input
                     type="number"
                     required
+                    list="set-options"
                     min="1"
                     value={editExSets}
                     onChange={(e) => setEditExSets(e.target.value)}
@@ -718,6 +741,7 @@ export default function WorkoutHistory() {
                   <input
                     type="number"
                     required
+                    list="rep-options"
                     min="1"
                     value={editExReps}
                     onChange={(e) => setEditExReps(e.target.value)}
@@ -730,6 +754,7 @@ export default function WorkoutHistory() {
                     type="number"
                     required
                     step="any"
+                    list="weight-options"
                     min="0"
                     value={editExWeight}
                     onChange={(e) => setEditExWeight(e.target.value)}
@@ -781,6 +806,19 @@ export default function WorkoutHistory() {
           </div>
         </div>
       )}
+
+      <datalist id="exercise-options">
+        {EXERCISE_LIST.map((ex) => <option key={ex} value={ex} />)}
+      </datalist>
+      <datalist id="set-options">
+        {SETS_LIST.map((val) => <option key={val} value={val} />)}
+      </datalist>
+      <datalist id="rep-options">
+        {REPS_LIST.map((val) => <option key={val} value={val} />)}
+      </datalist>
+      <datalist id="weight-options">
+        {WEIGHT_LIST.map((val) => <option key={val} value={val} />)}
+      </datalist>
     </div>
   );
 }
